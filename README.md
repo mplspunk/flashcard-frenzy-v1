@@ -6,7 +6,7 @@
 First iteration of a basic flashcard app in Android
 
 ### App Walk-though
-<img src="https://recordit.co/A2fw8W98hE" width=200><br>
+<img src="http://g.recordit.co/A2fw8W98hE.gif" width=200><br>
 
 ## Required User Stories
 - [x] Create New Project in Android Studio
