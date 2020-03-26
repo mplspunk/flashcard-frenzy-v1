@@ -15,8 +15,13 @@ public class AddCardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_card);
 
-        String question = getIntent().getStringExtra("string1");
-        String answer = getIntent().getStringExtra("string2");
+        String question = getIntent().getStringExtra("editQuestion");
+        String answer = getIntent().getStringExtra("editAnswer");
+
+        if (question != null && answer != null) {
+            ((EditText) findViewById(R.id.question)).setText(question);
+            ((EditText) findViewById(R.id.answer)).setText(answer);
+        }
 
         // Cancels the activity and sends the user back to the main activity
         findViewById(R.id.cancelBtn).setOnClickListener(new View.OnClickListener() {

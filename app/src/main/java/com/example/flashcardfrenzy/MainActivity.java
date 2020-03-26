@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 //(((TextView) findViewById(R.id.flashcard_question)).getText().toString())
                 Intent editCard = new Intent(MainActivity.this, AddCardActivity.class);
                 editCard.putExtra("editQuestion", ((TextView) findViewById(R.id.flashcard_question)).getText().toString());
@@ -171,6 +170,31 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar.LENGTH_SHORT)
                     .show();
             }
+
+        if (requestCode == 200 && resultCode == RESULT_OK) {
+            String string1 = data.getExtras().getString("string1");
+            String string2 = data.getExtras().getString("string2");
+            TextView flashcard_question = findViewById(R.id.flashcard_question);
+            TextView flashcard_answer = findViewById(R.id.flashcard_answer);
+            flashcard_question.setText(string1);
+            flashcard_answer.setText(string2);
+            Flashcard temp = allFlashcards.get(currentCardDisplayedIndex);
+            temp.setQuestion(string1);
+            temp.setAnswer(string2);
+            flashcardDatabase.updateCard(temp);
+            allFlashcards = flashcardDatabase.getAllCards();
+
+            // display a snackbar message when a card is created
+            Snackbar.make(findViewById(R.id.flashcard_question),
+                    "Card successfully updated!",
+                    Snackbar.LENGTH_SHORT)
+                    .show();
         }
 
+
+
+        }
+
+
 }
+
