@@ -36,8 +36,8 @@ Lab 3 version of flashcard app
 <img src="http://g.recordit.co/1nPRnUhq2Q.gif" width=200><br>
 
 ## Required User Stories
-- [x] User can create a card and still see their created card when the app is relaunched.
-- [x] User can create muliple cards and browse through all created cards
+- [x] User can create a card and still see their created card when the app is relaunched
+- [x] User can create multiple cards and browse through all created cards
 
 ## Optional User Stories
 - [ ] User can delete a card and no longer see it in their deck anymore
