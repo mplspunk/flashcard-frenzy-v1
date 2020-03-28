@@ -50,11 +50,5 @@ public class AddCardActivity extends AppCompatActivity {
 
         });
 
-
-
-
-
-
-
     }
 }

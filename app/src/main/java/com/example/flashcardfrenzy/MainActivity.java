@@ -1,9 +1,9 @@
 package com.example.flashcardfrenzy;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.Animator;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.View;
 import android.content.Intent;
@@ -12,9 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.List;
 
 
@@ -24,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
     List<Flashcard> allFlashcards;
     int currentCardDisplayedIndex = 0;
     Flashcard cardToEdit;
+    CountDownTimer countDownTimer;
+
+    private final void startTimer() {
+        countDownTimer.cancel();
+        countDownTimer.start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.flashcard_question).setBackgroundColor(getResources().getColor(R.color.questionBackground,null));
 
         findViewById(R.id.flashcard_answer).setBackgroundColor(getResources().getColor(R.color.answerBackground, null));
+
+        countDownTimer = new CountDownTimer(11000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                ((TextView) findViewById(R.id.timer)).setText("" + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+            }
+        };
+        startTimer();
+
 
         findViewById(R.id.flashcard_question).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,18 +149,42 @@ public class MainActivity extends AppCompatActivity {
                         // we don't need to worry about this method
                     }
                 });
-
+                startTimer();
             }
 
         });
 
         findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //(((TextView) findViewById(R.id.flashcard_question)).getText().toString())
                 Intent editCard = new Intent(MainActivity.this, AddCardActivity.class);
                 editCard.putExtra("editQuestion", ((TextView) findViewById(R.id.flashcard_question)).getText().toString());
                 editCard.putExtra("editAnswer", ((TextView) findViewById(R.id.flashcard_answer)).getText().toString());
                 MainActivity.this.startActivityForResult(editCard, 200);
+            }
+        });
+
+        findViewById(R.id.trash).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flashcardDatabase.deleteCard(((TextView) findViewById(R.id.flashcard_question)).getText().toString());
+                allFlashcards = flashcardDatabase.getAllCards();
+
+                if(currentCardDisplayedIndex < 1) {
+                    currentCardDisplayedIndex = 1;
+                }
+
+                if (allFlashcards.size() > 0 && allFlashcards != null) {
+                    ((TextView) findViewById(R.id.flashcard_question)).setText(allFlashcards.get(currentCardDisplayedIndex - 1).getQuestion());
+                    ((TextView) findViewById(R.id.flashcard_answer)).setText(allFlashcards.get(currentCardDisplayedIndex - 1).getAnswer());
+                    // display a snackbar message when a card is deleted
+                    Snackbar.make(findViewById(R.id.flashcard_question),
+                            "Card successfully deleted!",
+                            Snackbar.LENGTH_SHORT)
+                            .show();
+                } else {
+                    ((TextView) findViewById(R.id.flashcard_question)).setText("Add a card!");
+                    ((TextView) findViewById(R.id.flashcard_answer)).setText("");
+                }
             }
         });
 
@@ -184,17 +223,14 @@ public class MainActivity extends AppCompatActivity {
             flashcardDatabase.updateCard(temp);
             allFlashcards = flashcardDatabase.getAllCards();
 
-            // display a snackbar message when a card is created
+            // display a snackbar message when a card is updated
             Snackbar.make(findViewById(R.id.flashcard_question),
                     "Card successfully updated!",
                     Snackbar.LENGTH_SHORT)
                     .show();
         }
 
-
-
         }
-
 
 }
 
