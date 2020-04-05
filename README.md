@@ -3,7 +3,7 @@
 ## Lab 4
 
 ### App Description
-Lab 4 version of flashcard app
+An Android flashcard app to help students study
 
 ### App Walk-though
 <img src="http://g.recordit.co/UykPhg2Qey.gif" width=200><br>
@@ -30,7 +30,7 @@ Lab 4 version of flashcard app
 ## Lab 3
 
 ### App Description
-Lab 3 version of flashcard app
+An Android flashcard app to help students study
 
 ### App Walk-though
 <img src="http://g.recordit.co/1nPRnUhq2Q.gif" width=200><br>
@@ -49,7 +49,7 @@ Lab 3 version of flashcard app
 ## Lab 2
 
 ### App Description
-Lab 2 version of flashcard app
+An Android flashcard app to help students study
 
 ### App Walk-though
 <img src="http://g.recordit.co/cdweMSnjyD.gif" width=200><br>
